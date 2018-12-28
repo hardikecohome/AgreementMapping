@@ -50,7 +50,7 @@ export class AgreementMapping extends Component {
 					</div>
 					<div className='col-md-3'>
 						<label className='form-label'>Selected Provinces</label>
-						<label name='SelectProvinces' className='form-control'>{this.state.selectedProvinces.length}</label>
+						<label name='SelectProvinces' className='form-control'>{this.state.selectedProvinces.join(",")}</label>
 					</div>					
 				</div>
 
