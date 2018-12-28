@@ -3,41 +3,32 @@
 export class Provinces extends Component {
 
 	displayName = Provinces.name
-	constructor(props) {
-		super(props);
-		this.state = {			
-			value: 'select'
-		};
-	}
-	
-	renderProvinces = provinces => {
-		return (provinces.map(province =>
-			<option key={province} value={province} > {province} </option>
-		)
+
+	renderProvinces = (provinces, selectedProvinces) => {
+		return provinces.map(province =>
+			<option key={province} value={province} className={selectedProvinces.filter(p => p === province).length > 0 ? 'label-primary' : ''} > {province} </option >
 		);
 	};
 
-	onProvinceChange = event => {
-		const selectedProvince = event.target.value;
-		let newState = this.state;
-		newState.value = selectedProvince;
-		this.setState({ state: newState });	
-		if (selectedProvince !== 'Select') {
-			this.props.onSelectProvinceForDealer(event);
-		}
 
-	};
 
 	render() {
 		const provinces = ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+		let value = 'select';
 		return (
-			<div className='col-md-3'>
-				<label className='form-label'>Province</label>
-				<select name='provinceName' className='form-control' onChange={this.onProvinceChange} value={this.state.value}>
-					<option>Select</option>
-					{this.renderProvinces(provinces)}
-				</select>
-			</div>
+			<React.Fragment>
+				<div className='col-md-3'>
+					<label className='form-label'>Province</label>
+					<select name='provinceName' className='form-control' onChange={this.props.onSelectProvinceForDealer} value={value}>
+						<option>Select / Unselect</option>
+						{this.renderProvinces(provinces, this.props.selectedProvinces)}
+					</select>
+				</div>
+				<div className='col-md-3'>
+					<label className='form-label'>Selected Provinces</label>
+					<label name='SelectProvinces' className='form-control'>{this.props.selectedProvinces.join(",")}</label>
+				</div>
+			</React.Fragment>
 		);
 	}
 }

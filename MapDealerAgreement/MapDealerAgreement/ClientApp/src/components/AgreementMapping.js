@@ -17,9 +17,11 @@ export class AgreementMapping extends Component {
 		const selectedProvince = event.target.value;
 		let newState = this.state;
 		if (newState.selectedProvinces.filter(Province => Province === selectedProvince).length > 0) {
-			return null;
+			newState.selectedProvinces = newState.selectedProvinces.filter(Province => Province !== selectedProvince);
 		}
-		newState.selectedProvinces.push(selectedProvince);
+		else {
+			newState.selectedProvinces.push(selectedProvince);
+		}
 		this.setState({ state: newState });				
 	};
 
@@ -32,8 +34,7 @@ export class AgreementMapping extends Component {
 						<label className='form-label'>User Name</label>
 						<input type='Text' name='DealerUserName' className='form-control' />
 					</div>
-					<Provinces onSelectProvinceForDealer={this.selectProvinceForDealer} />
-					<SelectedProvinces selectedProvinces={this.state.selectedProvinces} />					
+					<Provinces onSelectProvinceForDealer={this.selectProvinceForDealer} selectedProvinces={this.state.selectedProvinces} />					
 				</div>
 
 
